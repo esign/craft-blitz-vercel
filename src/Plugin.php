@@ -5,12 +5,11 @@ namespace esign\craftblitzvercel;
 use Craft;
 use craft\base\Model;
 use craft\base\Plugin as BasePlugin;
-use esign\craftblitzvercel\models\Settings;
 use craft\events\RegisterComponentTypesEvent;
-use craft\events\RegisterTemplateRootsEvent;
-use craft\web\View;
+use esign\craftblitzvercel\models\Settings;
 use putyourlightson\blitz\helpers\CachePurgerHelper;
 use yii\base\Event;
+
 /**
  * Blitz Vercel Purger plugin
  *
@@ -55,7 +54,7 @@ class Plugin extends BasePlugin
         Event::on(
             CachePurgerHelper::class,
             CachePurgerHelper::EVENT_REGISTER_PURGER_TYPES,
-            function (RegisterComponentTypesEvent $event) {
+            function(RegisterComponentTypesEvent $event) {
                 $event->types[] = VercelCachePurger::class;
             }
         );

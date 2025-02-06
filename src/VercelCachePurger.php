@@ -106,22 +106,22 @@ class VercelCachePurger extends BaseCachePurger
         foreach ($batches as $batch) {
             foreach ($batch as $uri) {
                 $requests[] = new Request('HEAD', $uri, [
-                    'x-prerender-revalidate' => Plugin::getInstance()->settings->bypassToken
+                    'x-prerender-revalidate' => Plugin::getInstance()->getSettings()->bypassToken,
                 ]);
             }
         }
 
         // Create a pool of requests
         $pool = new Pool($client, $requests, [
-            'fulfilled' => function () use (&$response) {
+            'fulfilled' => function() use (&$response) {
                 $response = true;
             },
-            'rejected' => function (RequestException $reason) {
+            'rejected' => function(RequestException $reason) {
                 preg_match('/^(.*?)\R/', $reason->getMessage(), $matches);
                 if (!empty($matches[1])) {
-                    Blitz::$plugin->log(
-                        trim($matches[1], ':'), 
-                        [], 
+                    Blitz::getInstance()->log(
+                        trim($matches[1], ':'),
+                        [],
                         Logger::LEVEL_ERROR
                     );
                 }

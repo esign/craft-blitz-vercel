@@ -9,7 +9,7 @@ Vercel cache purger for Blitz plugin for Craft CMS.
 
 ## Requirements
 
-This plugin requires Craft CMS 5.6.0 or later, and PHP 8.2 or later.
+This plugin requires Craft CMS 5.0.0 or later, and PHP 8.2 or later.
 
 ## Installation
 

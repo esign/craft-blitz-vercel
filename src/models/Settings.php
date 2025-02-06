@@ -2,7 +2,6 @@
 
 namespace esign\craftblitzvercel\models;
 
-use Craft;
 use craft\base\Model;
 
 /**
