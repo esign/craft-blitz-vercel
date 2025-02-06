@@ -1,0 +1,16 @@
+{# @var plugin \esign\craftblitzvercel\Plugin #}
+{# @var settings \esign\craftblitzvercel\models\Settings #}
+
+{% import '_includes/forms.twig' as forms %}
+
+
+{{ forms.autosuggestField({
+    label: 'Bypass token'|t('blitz'),
+    instructions: 'The bypass token for your Vercel cache.'|t('blitz'),
+    suggestEnvVars: true,
+    suggestions: craft.cp.getEnvSuggestions(),
+    name: 'bypassToken',
+    value: settings.bypassToken,
+    errors: settings.getErrors('bypassToken'),
+    required: true,
+}) }}

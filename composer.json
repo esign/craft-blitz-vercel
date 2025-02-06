@@ -1,0 +1,49 @@
+{
+  "name": "esign/craft-blitz-vercel",
+  "description": "Vercel cache purger for Blitz plugin for Craft CMS.",
+  "type": "craft-plugin",
+  "license": "mit",
+  "support": {
+    "email": "support@esign.eu",
+    "issues": "https://github.com/esign/craft-blitz-vercel/issues?state=open",
+    "source": "https://github.com/esign/craft-blitz-vercel",
+    "docs": "https://github.com/esign/craft-blitz-vercel",
+    "rss": "https://github.com/esign/craft-blitz-vercel/releases.atom"
+  },
+  "require": {
+    "php": ">=8.2",
+    "craftcms/cms": "^5.0.0",
+    "putyourlightson/craft-blitz": "^5.0"
+  },
+  "require-dev": {
+    "craftcms/ecs": "dev-main",
+    "craftcms/phpstan": "dev-main",
+    "phpstan/phpstan": "^1.12"
+  },
+  "autoload": {
+    "psr-4": {
+      "esign\\craftblitzvercel\\": "src/"
+    }
+  },
+  "extra": {
+    "handle": "blitz-vercel",
+    "name": "Blitz Vercel Purger",
+    "developer": "dieter vanhove",
+    "documentationUrl": "https://github.com/esign/craft-blitz-vercel"
+  },
+  "scripts": {
+    "check-cs": "ecs check --ansi",
+    "fix-cs": "ecs check --ansi --fix",
+    "phpstan": "phpstan --memory-limit=1G"
+  },
+  "config": {
+    "sort-packages": true,
+    "platform": {
+      "php": "8.2"
+    },
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  }
+}
