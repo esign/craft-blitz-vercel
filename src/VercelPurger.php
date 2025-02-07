@@ -3,6 +3,11 @@
 namespace esign\craftblitzvercel;
 
 use Craft;
+use craft\base\Event;
+use craft\behaviors\EnvAttributeParserBehavior;
+use craft\events\RegisterTemplateRootsEvent;
+use craft\helpers\App;
+use craft\web\View;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
@@ -13,8 +18,58 @@ use putyourlightson\blitz\helpers\CachePurgerHelper;
 use putyourlightson\blitz\helpers\SiteUriHelper;
 use yii\log\Logger;
 
-class VercelCachePurger extends BaseCachePurger
+class VercelPurger extends BaseCachePurger
 {
+    public string $bypassToken = '';
+
+    public static function displayName(): string
+    {
+        return Craft::t('blitz', 'Vercel Purger');
+    }
+
+    public function getSettingsHtml(): ?string
+    {
+        return Craft::$app->getView()->renderTemplate('blitz-vercel/settings', [
+            'purger' => $this,
+        ]);
+    }
+
+    public function init(): void
+    {
+        Event::on(View::class, View::EVENT_REGISTER_CP_TEMPLATE_ROOTS,
+            function(RegisterTemplateRootsEvent $event) {
+                $event->roots['blitz-vercel'] = __DIR__ . '/templates/';
+            }
+        );
+    }
+
+    public function behaviors(): array
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['parser'] = [
+            'class' => EnvAttributeParserBehavior::class,
+            'attributes' => [
+                'bypassToken',
+            ],
+        ];
+
+        return $behaviors;
+    }
+
+    public function attributeLabels(): array
+    {
+        return [
+            'bypassToken' => Craft::t('blitz', 'Bypass Token'),
+        ];
+    }
+
+    public function rules(): array
+    {
+        return [
+            [['bypassToken'], 'required'],
+        ];
+    }
+
     public function purgeUris(array $siteUris, callable $setProgressHandler = null, bool $queue = true): void
     {
         $event = new RefreshCacheEvent(['siteUris' => $siteUris]);
@@ -106,7 +161,7 @@ class VercelCachePurger extends BaseCachePurger
         foreach ($batches as $batch) {
             foreach ($batch as $uri) {
                 $requests[] = new Request('HEAD', $uri, [
-                    'x-prerender-revalidate' => Plugin::getInstance()->getSettings()->bypassToken,
+                    'x-prerender-revalidate' => App::parseEnv($this->bypassToken),
                 ]);
             }
         }

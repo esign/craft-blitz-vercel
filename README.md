@@ -1,11 +1,16 @@
 # Blitz Vercel Purger
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/esign/craft-blitz-vercel.svg?style=flat-square)](https://packagist.org/packages/esign/craft-blitz-vercel)
-[![Total Downloads](https://img.shields.io/packagist/dt/esign/craft-blitz-vercel.svg?style=flat-square)](https://packagist.org/packages/esign/craft-blitz-vercel)
-![GitHub Actions](https://github.com/esign/craft-blitz-vercel/actions/workflows/main.yml/badge.svg)
+[![Stable Version](https://img.shields.io/packagist/v/esign/craft-blitz-vercel?label=stable)]((https://packagist.org/packages/esign/craft-blitz-vercel))
+[![Total Downloads](https://img.shields.io/packagist/dt/esign/craft-blitz-vercel)](https://packagist.org/packages/esign/craft-blitz-vercel)
 
+<p align="center"><img width="130" src="https://raw.githubusercontent.com/esign/craft-blitz-vercel/master/src/icon.svg"></p>
 
-Vercel cache purger for Blitz plugin for Craft CMS.
+The Vercel Purger plugin allows the [Blitz](https://putyourlightson.com/plugins/blitz) plugin for [Craft CMS](https://craftcms.com/) to intelligently purge pages cached on [Vercel](https://vercel.com).
+
+**Note that Vercel charges for invalidation requests. Since
+invalidation requests can quickly add up when purging individual URLs, you
+should be aware of the potential costs. esign takes no responsibility
+whatsoever for expenses incurred.**
 
 ## Requirements
 
@@ -38,7 +43,21 @@ composer require esign/craft-blitz-vercel
 
 After installing the plugin, you can use the plugin in the control panel under Settings > Blitz > Cache Purger.
 
+```php
+// The purger type to use.
+'cachePurgerType' => 'esign\craftblitzvercel\VercelPurger',
+
+// The purger settings.
+'cachePurgerSettings' => [
+   'bypassToken' => 'YOUR_BYPASS_TOKEN',
+],
+```
+
+More information about the Vercel Build Output API can be found [here](https://vercel.com/docs/build-output-api/v3/features#on-demand-incremental-static-regeneration-isr).
 
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+### Screenshot
+![Screenshot](resources/img/src01.png)

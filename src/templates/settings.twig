@@ -1,0 +1,12 @@
+{% import '_includes/forms.twig' as forms %}
+
+{{ forms.autosuggestField({
+    label: 'Bypass token'|t('blitz'),
+    instructions: 'The bypass token for your Vercel cache. '|t('blitz') ~ '<a href="https://vercel.com/docs/build-output-api/v3/features#on-demand-incremental-static-regeneration-isr" class="go" target="_blank" rel="noopener">'~ 'Learn more'|t('blitz') ~'</a>',
+    suggestEnvVars: true,
+    suggestions: craft.cp.getEnvSuggestions(),
+    name: 'bypassToken',
+    value: purger.bypassToken,
+    errors: purger.getErrors('bypassToken'),
+    required: true,
+}) }}
