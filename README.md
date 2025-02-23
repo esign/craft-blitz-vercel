@@ -7,11 +7,6 @@
 
 The Vercel Purger plugin allows the [Blitz](https://putyourlightson.com/plugins/blitz) plugin for [Craft CMS](https://craftcms.com/) to intelligently purge pages cached on [Vercel](https://vercel.com).
 
-**Note that Vercel charges for invalidation requests. Since
-invalidation requests can quickly add up when purging individual URLs, you
-should be aware of the potential costs. esign takes no responsibility
-whatsoever for expenses incurred.**
-
 ## Requirements
 
 This plugin requires Craft CMS 5.0.0 or later, and PHP 8.2 or later.
