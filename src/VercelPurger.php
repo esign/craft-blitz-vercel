@@ -70,7 +70,7 @@ class VercelPurger extends BaseCachePurger
     {
         return [
             [['bypassToken'], 'required'],
-            [['concurrency'], 'required', 'integer', 'min' => 1, 'max' => 50],
+            [['concurrency'], 'integer', 'min' => 1, 'max' => 50],
         ];
     }
 
