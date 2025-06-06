@@ -21,6 +21,7 @@ use yii\log\Logger;
 class VercelPurger extends BaseCachePurger
 {
     public string $bypassToken = '';
+    public int $concurrency = 5;
 
     public static function displayName(): string
     {
@@ -50,6 +51,7 @@ class VercelPurger extends BaseCachePurger
             'class' => EnvAttributeParserBehavior::class,
             'attributes' => [
                 'bypassToken',
+                'concurrency',
             ],
         ];
 
@@ -60,6 +62,7 @@ class VercelPurger extends BaseCachePurger
     {
         return [
             'bypassToken' => Craft::t('blitz', 'Bypass Token'),
+            'concurrency' => Craft::t('blitz', 'Concurrency'),
         ];
     }
 
@@ -67,6 +70,7 @@ class VercelPurger extends BaseCachePurger
     {
         return [
             [['bypassToken'], 'required'],
+            [['concurrency'], 'integer', 'min' => 1, 'max' => 50],
         ];
     }
 
@@ -181,6 +185,7 @@ class VercelPurger extends BaseCachePurger
                     );
                 }
             },
+            'concurrency' => $this->concurrency,
         ]);
 
         // Initiate the transfers and wait for the pool of requests to complete
