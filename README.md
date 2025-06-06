@@ -50,6 +50,7 @@ After installing the plugin, you can use the plugin in the control panel under S
 // The purger settings.
 'cachePurgerSettings' => [
    'bypassToken' => 'YOUR_BYPASS_TOKEN',
+   'concurrency' => 5
 ],
 ```
 

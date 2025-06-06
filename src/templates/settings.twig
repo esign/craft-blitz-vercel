@@ -10,3 +10,14 @@
     errors: purger.getErrors('bypassToken'),
     required: true,
 }) }}
+
+{{ forms.numberField({
+    label: 'Concurrency'|t('blitz'),
+    instructions: 'The number of concurrent requests to send when purging cache.'|t('blitz'),
+    name: 'concurrency',
+    value: purger.concurrency,
+    errors: purger.getErrors('concurrency'),
+    min: 1,
+    max: 50,
+}) }}
+
